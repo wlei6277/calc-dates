@@ -7,4 +7,4 @@ const OUTSIDE_DTE_RNG_MSG = 'The date provided is outside the allowed range. Ple
 // There is 1000 milliseconds in a second, 60 seconds in a minute, 60 minutes in an hour and 24 hours in a day 
 const NUM_MILLISECONDS_IN_DAY = 1000 * 60 * 60 * 24;
 
-module.exports = { BAD_FORMAT_MSG, INVALID_DTE_MSG,NUM_MILLISECONDS_IN_DAY ,OUTSIDE_DTE_RNG_MSG };
+module.exports = { BAD_FORMAT_MSG, INVALID_DTE_MSG,NUM_MILLISECONDS_IN_DAY, OUTSIDE_DTE_RNG_MSG };
