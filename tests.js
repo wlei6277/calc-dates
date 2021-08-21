@@ -1,6 +1,7 @@
 const { BAD_FORMAT_MSG, OUTSIDE_DTE_RNG_MSG } = require("./constants");
 const { differenceDays, validateDateStr } = require('./helpers');
 
+// Test class to structure unit testing output 
 function Test(input, expected, result) {
   this.input = input;
   this.expected = expected;
