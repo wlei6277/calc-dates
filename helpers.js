@@ -13,9 +13,11 @@ const getDateComponents = dateStr => {
 // Use Bitwise operator to floor number (since this challenge only allows primatives)
 const floorNumber = number =>  number | 0;
 
-// TODO add comments and a link to docs for how this helper works
-// Conv to Julian days
-// Takes an object containing days, months and years (JavaScript number type)
+// Helper to convert a date into Julien days (continuous count of days since the beginning of the Julian period) - this helper enables the calculation of elapsed between two events by normalizing each date with respect to the number of days since the Julian period
+// Takes an object of the day, month and year components
+// Returns a JavaScript number representing the number of days since the Julian period
+// Formula sourced here https://math.stackexchange.com/questions/683312/formula-to-calculate-difference-between-two-dates 
+// Wiki on Julian days https://en.wikipedia.org/wiki/Julian_day 
 const convertDateComponentsToJulianDays = ({ dd, mm, yyyy }) => 365 * yyyy + floorNumber(yyyy/4) - floorNumber(yyyy/100) + floorNumber(yyyy/400) + dd + floorNumber((153*mm+8)/5);
 
 // Helper to calculate the number of days between two dates
