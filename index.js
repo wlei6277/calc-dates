@@ -3,8 +3,6 @@ const { calculateDaysDifference,  validateDateStr } = require('./helpers');
 
 // Node command line interface application to read two dates from standard input and calculate the number days between them
 // The goal of this application is to guide CLI user to enter two dates, check if these are valid and then calculate and return the difference in days
-// Assumptions:
-//  -> User provides two dates strings in the format DD/MM/YYYY
 
 const rl = readline.createInterface({
   input: process.stdin,
