@@ -1,4 +1,4 @@
-const { BAD_FORMAT_MSG, OUTSIDE_DTE_RNG_MSG } = require("./constants");
+const { BAD_FORMAT_MSG, INVALID_DTE_MSG, OUTSIDE_DTE_RNG_MSG } = require("./constants");
 const { calculateDaysDifference, checkIsLeapYear, validateDateStr } = require('./helpers');
 
 // Test class to structure unit testing output 
@@ -26,6 +26,11 @@ console.table(new Test("Valid date: 22/6/1983", '', validateDateStr('22/6/1983')
 console.table(new Test("Valid date: 4/7/1984", '', validateDateStr('4/7/1984')));
 console.table(new Test("Valid date: 25/12/1984", '', validateDateStr('25/12/1984')));
 console.table(new Test("Valid date: 3/1/1989", '', validateDateStr('3/1/1989')));
+console.table(new Test("Valid date: 3/8/1983", '', validateDateStr('3/8/1983')));
+console.table(new Test("Invalid date: 31/9/2021 (only 30 days September)", INVALID_DTE_MSG, validateDateStr('31/9/2021')));
+console.table(new Test("Valid date: 28/2/2021 (28 days in Feb in a non leap year)", '', validateDateStr('28/2/2021')));
+console.table(new Test("Invalid date: 29/2/2021 (28 days in Feb in a non leap year)", INVALID_DTE_MSG, validateDateStr('29/2/2021')));
+console.table(new Test("Valid date: 29/2/2020 (29 days in Feb in a leap year)", '', validateDateStr('29/2/2020')));
 console.table(new Test("Valid date: 3/8/1983", '', validateDateStr('3/8/1983')));
 console.table(new Test("Outside date range: 01/01/1899", OUTSIDE_DTE_RNG_MSG, validateDateStr('01/01/1899')));
 console.table(new Test("Outside date range: 01/01/3000", OUTSIDE_DTE_RNG_MSG, validateDateStr('01/01/3000')));

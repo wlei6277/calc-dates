@@ -1,4 +1,4 @@
-const { BAD_FORMAT_MSG, OUTSIDE_DTE_RNG_MSG } = require("./constants");
+const { BAD_FORMAT_MSG, INVALID_DTE_MSG, OUTSIDE_DTE_RNG_MSG } = require("./constants");
 
 // Helper to convert string to javascript number type - not sure if native parseInt method allowed in this challenge so using this instead
 const convToInteger = str => str - 0;
@@ -37,6 +37,7 @@ const checkEvenlyDivisible = (dividend, divisor) => ((dividend/divisor) % 1) ===
 
 // Helper to check if year is a leap year or not
 // Takes a JavaScript number to check if it is a leap year or not 
+// Returns a boolean of wether the year is a leap year or not
 // Logic has been taken from this source - https://www.wikihow.com/Calculate-Leap-Years
 const checkIsLeapYear = year => {
   // See if the number is evenly divisible by 4. Dividing the year by 4 will result in a whole number with no remainder if the number is evenly divisible. The number must be evenly divisible by 4! Otherwise, it is not a leap year
@@ -49,6 +50,27 @@ const checkIsLeapYear = year => {
   return false;
 }
 
+// Helper to define the number of days in each month which vary depending upon if the year is a leap year or not
+// Takes JavaScript number of the year in question (to check if it's a leap year or not)
+// Returns an object representing the number of days in each month
+const determineDaysInCalendarMonths = year => {
+  const isLeapYear = checkIsLeapYear(year);
+  return {
+    1: 31,
+    2: isLeapYear ? 29 : 28,
+    3: 31,
+    4: 30,
+    5: 31,
+    6: 30,
+    7: 31,
+    8: 31,
+    9: 30,
+    10: 31,
+    11: 30,
+    12: 31
+  }
+}
+
 
 // Helper to check if the provided date is valid
 // Returns an empty string if the date is valid otherwise it returns a string of the relevant err message to display to user if date is invalid
@@ -57,7 +79,15 @@ const validateDateStr = dateStr => {
   if (typeof dateStr !== 'string') return BAD_FORMAT_MSG;
   // Check in DD/MM/YYYY format
   const [dd,mm,yyyy] = dateStr.split('/');
-  if (!dd || convToInteger(dd) > 31 || convToInteger(dd) < 1 || !mm || convToInteger(mm) > 12 || convToInteger(mm) < 1 || !yyyy || yyyy.length !== 4) return BAD_FORMAT_MSG;
+  if (!dd || !mm || !yyyy || yyyy.length !== 4) return BAD_FORMAT_MSG;
+  const day = convToInteger(dd);
+  const month = convToInteger(mm);
+  const year = convToInteger(yyyy);
+  // Determine how many days there are in each month given the year
+  const daysInEachMonth = determineDaysInCalendarMonths(year);
+  // Determine if the provided date is valid
+  const lastDayInMonth = daysInEachMonth[month];
+  if (day < 1 || day > lastDayInMonth || month < 1 || month > 12) return INVALID_DTE_MSG;
   // Check if date is between 01/01/1900 and 31/12/2999
   if (convToInteger(yyyy) < 1900 || convToInteger(yyyy) > 2999) return OUTSIDE_DTE_RNG_MSG;
   // Date valid return empty str
