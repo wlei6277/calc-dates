@@ -35,13 +35,18 @@ const calculateDaysDifference = (from, to) =>  {
 // Helper to check if a dividend is evenly divisible by divisor (no remainder after division)
 const checkEvenlyDivisible = (dividend, divisor) => ((dividend/divisor) % 1) === 0;
 
+// Helper to check if year is a leap year or not
+// Takes a JavaScript number to check if it is a leap year or not 
+// Logic has been taken from this source - https://www.wikihow.com/Calculate-Leap-Years
 const checkIsLeapYear = year => {
   // See if the number is evenly divisible by 4. Dividing the year by 4 will result in a whole number with no remainder if the number is evenly divisible. The number must be evenly divisible by 4! Otherwise, it is not a leap year
-  if (checkEvenlyDivisible(year, 4)) return false;
+  if (!checkEvenlyDivisible(year, 4)) return false;
   // Confirm the number isn't evenly divisible by 100. If a year is evenly divisible by 4, but it is not evenly divisible 100, then it is a leap year. If a year is divisible by both 4 and 100, then it might not be a leap year, and you will have to perform 1 more calculation to check
   if (!checkEvenlyDivisible(year, 100)) return true;
   // Check if the number is evenly divisible by 400 to confirm a leap year. If a year is divisible by 100, but not 400, then it is not a leap year. If a year is divisible by both 100 and 400, then it is a leap year
   if (checkEvenlyDivisible(year, 400)) return true;
+  // Is divisible by 100 but not by 400 then it can't be a leap year
+  return false;
 }
 
 

@@ -1,5 +1,5 @@
 const { BAD_FORMAT_MSG, OUTSIDE_DTE_RNG_MSG } = require("./constants");
-const { calculateDaysDifference, validateDateStr } = require('./helpers');
+const { calculateDaysDifference, checkIsLeapYear, validateDateStr } = require('./helpers');
 
 // Test class to structure unit testing output 
 function Test(input, expected, result) {
@@ -7,6 +7,13 @@ function Test(input, expected, result) {
   this.expected = expected;
   this.result = result;
 }
+
+// Testing checkIsLeapYear helper
+console.log('Testing checkIsLeapYear helper \n');
+console.table(new Test("1997", false, checkIsLeapYear(1997)));
+console.table(new Test("2012", true, checkIsLeapYear(2012)));
+console.table(new Test("1900", false, checkIsLeapYear(1900)));
+console.table(new Test("2000", true, checkIsLeapYear(2000)));
 
 // Testing validation helper
 console.log('Testing validateDateStr helper \n');
